@@ -17,7 +17,7 @@ module XlsxTemplater
     end
 
     def generate_xlsx_bytes
-      Zip::OutputStream.write_buffer(StringIO.new) do |out|
+      Zip::OutputStream.write_buffer do |out|
         Zip::File.open(template_path).each do |entry|
           entry_name = entry.name
           out.put_next_entry(entry_name)
