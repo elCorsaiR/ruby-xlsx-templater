@@ -1,0 +1,13 @@
+= Roughly, this takes a .xlsx file and uses it as a template to create a new xlsx, with your data
+
+== Features
+
+* All manipulation in memory (great if you have sensitive data)
+* Global key/value substitutions by entering a `$KEY$` anywhere in the excel document, with whatever formatting you want.
+
+== Usage
+* Create your xlsx "template" in Excel
+* Install rvm and bundler
+* Run `bundle install`.
+* Render new xlsx files from the template, ex: `ruby render_xlsx_template.rb`. Look for an output_*.xlsx file.
+* Sample output with tests: `rake spec` (unit tests) `rake integration` (opens excel)

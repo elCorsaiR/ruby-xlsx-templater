@@ -1,0 +1,5 @@
+.DS_Store
+spec/example_input/tmp
+xlsx_templater*gem
+Gemfile.lock
+.~lock*
