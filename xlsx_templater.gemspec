@@ -1,7 +1,7 @@
 $:.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
-require "version"
+require "xlsx_templater/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = 'Generates new Excel .xlsx files based on a template file'
   s.date        = '2017-01-30'
 
-  s.files = Dir['{lib}/**/*'] + ['MIT-LICENSE', 'Rakefile', 'README.rdoc']
+  s.files = Dir['{lib}/**/*'] + ['LICENSE.txt', 'Rakefile', 'README.rdoc']
 
   s.add_runtime_dependency 'nokogiri'
   s.add_runtime_dependency 'rubyzip',   '>= 1.0'
