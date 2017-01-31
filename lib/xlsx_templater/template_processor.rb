@@ -19,7 +19,7 @@ module XlsxTemplater
           if value
             document.gsub!(/\#(END)?IF:#{key.to_s.upcase}\#/, '')
           else
-            document.gsub!(/\#IF:#{key.to_s.upcase}\#.*\#ENDIF:#{key.to_s.upcase}\#/m, '')
+            document.gsub!(/\#IF:#{key.to_s.upcase}\#[^\#]*\#ENDIF:#{key.to_s.upcase}\#/m, '')
           end
         # TODO work with array
         # when Array
