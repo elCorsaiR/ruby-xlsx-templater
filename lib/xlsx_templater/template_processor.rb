@@ -24,7 +24,7 @@ module XlsxTemplater
         # TODO work with array
         # when Array
         else
-          document.gsub!("$#{key.to_s.upcase}$", safe(value))
+          document.gsub! %r/##{key}#/i, safe(value)
         end
       end
       document
