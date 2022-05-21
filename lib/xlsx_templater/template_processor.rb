@@ -2,11 +2,11 @@ require 'nokogiri'
 
 module XlsxTemplater
   class TemplateProcessor
-    attr_reader :data, :escape_html
+    attr_reader :data
 
     # data is expected to be a hash of symbols => string or arrays of hashes.
-    def initialize(data, escape_html, delimiter)
-      @data, @escape_html, @delimiter = data, escape_html, delimiter
+    def initialize(data, delimiter)
+      @data, @delimiter = data, delimiter
     end
 
     def render(document)
@@ -34,12 +34,7 @@ module XlsxTemplater
     private
 
     def safe(text)
-      if escape_html
-        text.to_s.gsub('&', '&amp;').gsub('>', '&gt;').gsub('<', '&lt;')
-      else
-        text.to_s
-      end
+      text.to_s.gsub(/[&><"']/, '&' => '&amp;', '>' => '&gt;', '<' => '&lt;', '"' => '&quot;', "'" => '&apos;')
     end
-
   end
 end

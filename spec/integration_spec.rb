@@ -40,5 +40,12 @@ describe 'integration test', integration: true do
       expect(str).to_not include("$PAYEE$")
       expect(str.force_encoding('UTF-8')).to include(data[:payee])
     end
+
+    it 'encodes special chars' do
+      data[:payee] = 'John & Co'
+      XlsxTemplater::XlsxCreator.new(input_file, data).generate_xlsx_file(output_file)
+      str = get_shared_strings(output_file)
+      expect(str.force_encoding('UTF-8')).to include('John &amp; Co')
+    end
   end
 end

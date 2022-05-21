@@ -4,10 +4,10 @@ module XlsxTemplater
   class XlsxCreator
     attr_accessor :template_path, :template_processor, :sheet
 
-    def initialize(template_path, data, sheet = 1, escape_html: false, delimiter: '$')
+    def initialize(template_path, data, sheet = 1, delimiter: '$')
       @template_path = template_path
       @sheet = sheet
-      @template_processor = TemplateProcessor.new(data, escape_html, delimiter)
+      @template_processor = TemplateProcessor.new(data, delimiter)
     end
 
     def generate_xlsx_file(file_name = "output_#{Time.now.strftime('%Y-%m-%d_%H%M')}.xlsx")
