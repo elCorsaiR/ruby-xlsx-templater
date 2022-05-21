@@ -5,14 +5,15 @@ module XlsxTemplater
     attr_reader :data, :escape_html
 
     # data is expected to be a hash of symbols => string or arrays of hashes.
-    def initialize(data, escape_html)
-      @data, @escape_html = data, escape_html
+    def initialize(data, escape_html, delimiter)
+      @data, @escape_html, @delimiter = data, escape_html, delimiter
     end
 
     def render(document)
       if document.respond_to?(:force_encoding)
         document = document.force_encoding(Encoding::UTF_8) 
       end
+      safe_delimiter = Regexp.escape(@delimiter)
       data.each do |key, value|
         case value
         when TrueClass, FalseClass
@@ -24,7 +25,7 @@ module XlsxTemplater
         # TODO work with array
         # when Array
         else
-          document.gsub! %r/##{key}#/i, safe(value)
+          document.gsub! /#{safe_delimiter}#{key}#{safe_delimiter}/i, safe(value)
         end
       end
       document

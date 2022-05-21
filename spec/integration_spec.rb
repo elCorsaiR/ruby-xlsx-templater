@@ -1,9 +1,10 @@
 require 'spec_helper'
+require 'zip'
 
 describe 'integration test', integration: true do
   let(:data) do
     { 
-      payee: 'ВЕРНО',
+      payee: 'JOHN',
       have_uin: true,
       have_ks: false,
     }
@@ -31,6 +32,13 @@ describe 'integration test', integration: true do
       output_entries = Zip::File.open(output_file) { |z| z.map(&:name) }
 
       expect(input_entries).to eq(output_entries)
+    end
+
+    it 'should replace the token' do
+      XlsxTemplater::XlsxCreator.new(input_file, data).generate_xlsx_file(output_file)
+      str = get_shared_strings(output_file)
+      expect(str).to_not include("$PAYEE$")
+      expect(str.force_encoding('UTF-8')).to include(data[:payee])
     end
   end
 end

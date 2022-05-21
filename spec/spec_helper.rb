@@ -10,3 +10,9 @@ RSpec.configure do |config|
     end
   end
 end
+
+def get_shared_strings(file_path)
+  unzipped = Zip::File.new(file_path)
+  entries = unzipped.entries.select do |e| e.name =~ /sharedStrings/ end
+  entries.inject("") do |str, e| str << e.get_input_stream.read end
+end
