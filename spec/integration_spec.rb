@@ -47,5 +47,23 @@ describe 'integration test', integration: true do
       str = get_shared_strings(output_file)
       expect(str.force_encoding('UTF-8')).to include('John &amp; Co')
     end
+
+    context 'file contains folder entries' do
+      let(:input_file) { "#{base_path}/template2.xlsx" }
+      it 'generates a valid zip file (.xlsx)' do
+        XlsxTemplater::XlsxCreator.new(input_file, data).generate_xlsx_file(output_file)
+
+        archive = Zip::File.open(output_file)
+        archive.close
+      end
+
+      it 'generates a file with the same contents as the input xlsx' do
+        input_entries = Zip::File.open(input_file) { |z| z.map(&:name) }
+        XlsxTemplater::XlsxCreator.new(input_file, data).generate_xlsx_file(output_file)
+        output_entries = Zip::File.open(output_file) { |z| z.map(&:name) }
+
+        expect(input_entries).to eq(output_entries)
+      end
+    end
   end
 end
